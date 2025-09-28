@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Today Rainfall Prediction</title>
+    <style>
+      body {
+        font-family: Arial;
+        padding: 24px;
+        background: #f3f6fb;
+      }
+      .card {
+        max-width: 920px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .field {
+        flex: 1 1 200px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
+      }
+      label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        color: #333;
+      }
+      input,
+      select {
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid #d7dbe0;
+        font-size: 0.95rem;
+      }
+      button {
+        background: #2563eb;
+        color: white;
+        padding: 10px 14px;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .note {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 10px;
+      }
+      .result {
+        margin-top: 16px;
+        padding: 12px;
+        background: #f1f5ff;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Rainfall Prediction</h2>
+      <p style="font-size: 12px; color: rgb(119, 119, 119)">
+        Upload yesterday’s observations to predict today's rain.
+      </p>
+      <form action="/" method="post">
+        <div class="row">
+          <div class="field">
+            <label>Season</label>
+            <select name="Season" required>
+              <option value="">Select Season</option>
+              <option>Summer</option>
+              <option>Autumn</option>
+              <option>Winter</option>
+              <option>Spring</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Location</label>
+            <select name="Location" required>
+              <option value="">Select Location</option>
+              <option value="Melbourne">Melbourne</option>
+              <option value="MelbourneAirport">MelbourneAirport</option>
+              <option value="Watsonia">Watsonia</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Rain Yesterday</label>
+            <select name="RainYesterday" required>
+              <option value="">Select Rain Yesterday</option>
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>MinTemp (°C)</label>
+            <input
+              name="MinTemp"
+              type="number"
+              step="any"
+              placeholder="e.g. 12.4"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label>MaxTemp (°C)</label>
+            <input
+              name="MaxTemp"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 16.4"
+            />
+          </div>
+
+          <div class="field">
+            <label>Rainfall (mm)</label>
+            <input
+              name="Rainfall"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 2.3"
+            />
+          </div>
+
+          <div class="field">
+            <label>Evaporation (mm)</label>
+            <input
+              name="Evaporation"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 6.2"
+            />
+          </div>
+
+          <div class="field">
+            <label>Sunshine (hours)</label>
+            <input
+              name="Sunshine"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 8.2"
+            />
+          </div>
+
+          <div class="field">
+            <label>WindGustDir</label>
+            <select name="WindGustDir" required>
+              <option value="">Select WindGustDir</option>
+              <option>E</option>
+              <option>ENE</option>
+              <option>ESE</option>
+              <option>N</option>
+              <option>NE</option>
+              <option>NNE</option>
+              <option>NNW</option>
+              <option>NW</option>
+              <option>S</option>
+              <option>SE</option>
+              <option>SSE</option>
+              <option>SSW</option>
+              <option>SW</option>
+              <option>W</option>
+              <option>WNW</option>
+              <option>WSW</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>WindGustSpeed (km/h)</label>
+            <input
+              name="WindGustSpeed"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 48"
+            />
+          </div>
+
+          <div class="field">
+            <label>WindDir9am</label>
+            <select name="WindDir9am" required>
+              <option value="">Select WindDir9am</option>
+              <option>E</option>
+              <option>ENE</option>
+              <option>ESE</option>
+              <option>N</option>
+              <option>NE</option>
+              <option>NNE</option>
+              <option>NNW</option>
+              <option>NW</option>
+              <option>S</option>
+              <option>SE</option>
+              <option>SSE</option>
+              <option>SSW</option>
+              <option>SW</option>
+              <option>W</option>
+              <option>WNW</option>
+              <option>WSW</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>WindDir3pm</label>
+            <select name="WindDir3pm" required>
+              <option value="">Select WindDir3pm</option>
+              <option>E</option>
+              <option>ENE</option>
+              <option>ESE</option>
+              <option>N</option>
+              <option>NE</option>
+              <option>NNE</option>
+              <option>NNW</option>
+              <option>NW</option>
+              <option>S</option>
+              <option>SE</option>
+              <option>SSE</option>
+              <option>SSW</option>
+              <option>SW</option>
+              <option>W</option>
+              <option>WNW</option>
+              <option>WSW</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>WindSpeed9am (km/h)</label>
+            <input
+              name="WindSpeed9am"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 36.2"
+            />
+          </div>
+
+          <div class="field">
+            <label>WindSpeed3pm (km/h)</label>
+            <input
+              name="WindSpeed3pm"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 35.3"
+            />
+          </div>
+
+          <div class="field">
+            <label>Humidity9am (percent)</label>
+            <input
+              name="Humidity9am"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 31"
+            />
+          </div>
+
+          <div class="field">
+            <label>Humidity3pm (percent)</label>
+            <input
+              name="Humidity3pm"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 42"
+            />
+          </div>
+
+          <div class="field">
+            <label>Pressure9am (hpa)</label>
+            <input
+              name="Pressure9am"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 1003.1"
+            />
+          </div>
+
+          <div class="field">
+            <label>Pressure3pm (hpa)</label>
+            <input
+              name="Pressure3pm"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 1004.2"
+            />
+          </div>
+
+          <div class="field">
+            <label>Cloud9am (oktas)</label>
+            <input
+              name="Cloud9am"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 6"
+            />
+          </div>
+
+          <div class="field">
+            <label>Cloud3pm (oktas)</label>
+            <input
+              name="Cloud3pm"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 7"
+            />
+          </div>
+
+          <div class="field">
+            <label>Temp9am (°C)</label>
+            <input
+              name="Temp9am"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 13"
+            />
+          </div>
+
+          <div class="field">
+            <label>Temp3pm (°C)</label>
+            <input
+              name="Temp3pm"
+              type="number"
+              step="any"
+              required
+              placeholder="e.g. 16"
+            />
+          </div>
+        </div>
+
+        <div style="margin-top: 14px">
+          <button type="submit">Predict</button>
+        </div>
+      </form>
+
+      {% if prediction_text %}
+      <div class="result">
+        <strong
+          >Prediction about today rain:<span style="color: rgb(219, 25, 25)"
+            >{{ prediction_text }}</span
+          ></strong
+        >
+      </div>
+
+      <div class="result">
+        <strong>Input: {{ input_data }}</strong>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
