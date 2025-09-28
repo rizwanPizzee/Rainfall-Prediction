@@ -61,6 +61,23 @@
         background: #f1f5ff;
         border-radius: 8px;
       }
+      .input-values {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .input-values th,
+      .input-values td {
+        padding: 8px 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .input-values th {
+        text-align: left;
+        width: 40%;
+        font-weight: 600;
+      }
+      .input-values td {
+        text-align: right;
+      }
     </style>
   </head>
   <body>
@@ -362,7 +379,20 @@
       </div>
 
       <div class="result">
-        <strong>Input: {{ input_data }}</strong>
+        <table class="input-values">
+          <tbody>
+            <tr>
+              <th></th>
+              <th>Input Values</th>
+            </tr>
+            {% for k, v in input_data.items() %}
+            <tr>
+              <th>{{ k }}</th>
+              <td>{{ v }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
       {% endif %}
     </div>
